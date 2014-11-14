@@ -299,12 +299,15 @@ class FlickrBackup(object):
     def retrieve_flickr_token(self):
         flickr_api = flickrapi.FlickrAPI(FLICKR_API_KEY, secret=FLICKR_API_SECRET)
 
-        (token, frob) = flickr_api.get_token_part_one(perms='write')
-        if not token:
-            raw_input("Press ENTER after you authorized this program")
-        flickr_api.get_token_part_two((token, frob))
+        flickr_api.authenticate_via_browser(perms='read')
 
-        flickr_usernsid = flickr_api.auth_checkToken(auth_token=token).find('auth').find('user').get('nsid')
+        #(token, frob) = flickr_api.get_token_part_one(perms='write')
+        #if not token:
+        #    raw_input("Press ENTER after you authorized this program")
+        #flickr_api.get_token_part_two((token, frob))
+
+        flickr_usernsid = ''
+        #flickr_api.auth_checkToken(auth_token=token).find('auth').find('user').get('nsid')
 
         return (flickr_api, flickr_usernsid)
 
